@@ -14,6 +14,38 @@ public class UserProfileTO {
 	private String aboutMe;
 	private String lifeMotto;
 	
+	/**
+	 * UserProfileTO default constructor.
+	 */
+	public UserProfileTO(){
+		
+	}
+	
+	/**
+	 * UserProfileTO parameterized constructor.
+	 * 
+	 * @param id - User's ID.
+	 * @param login - User's login. 
+	 * @param password - User's password.
+	 * @param name - User's name.
+	 * @param surname - User's surname.
+	 * @param email - User's email.
+	 * @param aboutMe  - User's aboutMe field.
+	 * @param lifeMotto - User's life motto.
+	 */
+	public UserProfileTO(long id, String login, String password, String name, String surname, String email,
+			String aboutMe, String lifeMotto) {
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.aboutMe = aboutMe;
+		this.lifeMotto = lifeMotto;
+	}
+	
+	//CHECKSTYLE:OFF
 	public long getId() {
 		return id;
 	}
@@ -80,21 +112,6 @@ public class UserProfileTO {
 		this.lifeMotto = lifeMotto;
 	}
 	
-	public UserProfileTO(){
-		
-	}
-
-	public UserProfileTO(long id, String login, String password, String name, String surname, String email,
-			String aboutMe, String lifeMotto) {
-		this.id = id;
-		this.login = login;
-		this.password = password;
-		this.name = name;
-		this.surname = surname;
-		this.email = email;
-		this.aboutMe = aboutMe;
-		this.lifeMotto = lifeMotto;
-	}
 
 	@Override
 	public String toString() {
@@ -102,4 +119,5 @@ public class UserProfileTO {
 				+ ", surname=" + surname + ", email=" + email + ", aboutMe=" + aboutMe + ", lifeMotto=" + lifeMotto
 				+ "]";
 	}
+	//CHECKSTYLE:ON
 }

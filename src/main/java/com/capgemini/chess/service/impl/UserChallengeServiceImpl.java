@@ -3,6 +3,8 @@ package com.capgemini.chess.service.impl;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +36,10 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		// challengeDao.removeChallengeById(challengeId);
 		// message.show("Opponent declined.")
 	}
-
+	//white i black player @NotNull
+	//nie final
 	@Override
-	public final void createChallenge(final int whitePlayerId, final int blackPlayerId) {
+	public void createChallenge(@NotNull final int whitePlayerId,@NotNull final int blackPlayerId) {
 		// List will not reiterate itself and shift data into empty fields
 		// DB engine will do this
 		int currentSize = challengeDao.getMockingChallengeTableList().size();

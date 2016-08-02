@@ -9,5 +9,5 @@ import com.capgemini.chess.service.ServiceTestSuite;
 @RunWith(Suite.class)
 @SuiteClasses({ServiceTestSuite.class})
 public class AllTests {
-
+	
 }

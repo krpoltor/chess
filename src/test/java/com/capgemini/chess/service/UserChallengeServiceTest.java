@@ -27,10 +27,10 @@ import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
 public class UserChallengeServiceTest {
 
 	@Autowired
-	UserChallengeService userChallengeService;
+	private UserChallengeService userChallengeService;
 
 	@Autowired
-	ChallengeDao challengeDao;
+	private ChallengeDao challengeDao;
 
 	/**
 	 * Test for invoking accepting a challenge.
@@ -60,7 +60,7 @@ public class UserChallengeServiceTest {
 	 * Test for invoking creating new challenge.
 	 */
 	@Test
-	public void shouldCreateChallengeWhiteFirst() {
+	public void shouldCreateChallenge() {
 		// given
 		// when
 		userChallengeService.createChallenge(50, 60);

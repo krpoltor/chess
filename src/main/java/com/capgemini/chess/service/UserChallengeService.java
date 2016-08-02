@@ -20,5 +20,7 @@ public interface UserChallengeService {
 	 * @param blackPlayerId - ID of a player playing with black chess-set.
 	 */
 	void createChallenge(int whitePlayerId, int blackPlayerId);
+	//zwracanie challeneTO ktory zapisuje w bazie danych
+	//komentarz do klasy
 
 }
