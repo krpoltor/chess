@@ -1,9 +1,9 @@
 package com.capgemini.chess.service;
 
-import com.capgemini.chess.service.to.UserProfileTO;
+import com.capgemini.chess.service.to.UserProfileTo;
 
 public interface UserService {
 	
-	public UserProfileTO readUser(Long id);
+	public UserProfileTo readUser(Long id);
 	
 }

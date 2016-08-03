@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
 
-public class ChallengeTO {
+public class ChallengeTo {
 	private int id;
 	private int whitePlayerId;
 	private int blackPlayerId;
@@ -15,7 +15,7 @@ public class ChallengeTO {
 	/**
 	 * ChallengeTO default constructor.
 	 */
-	public ChallengeTO() {
+	public ChallengeTo() {
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class ChallengeTO {
 	 * @param endDate - Date of expiring a challenge.
 	 * @param status - Status of a challenge from {@link ChallengeStatus}
 	 */
-	public ChallengeTO(int id, int whitePlayerId, int blackPlayerId, Date startDate, Date endDate, ChallengeStatus status) {
+	public ChallengeTo(int id, int whitePlayerId, int blackPlayerId, Date startDate, Date endDate, ChallengeStatus status) {
 		this.id = id;
 		this.whitePlayerId = whitePlayerId;
 		this.blackPlayerId = blackPlayerId;

@@ -1,5 +1,9 @@
 package com.capgemini.chess.service;
 
+import java.util.List;
+
+import com.capgemini.chess.service.to.ChallengeTo;
+
 public interface UserChallengeService {
 
 	/**
@@ -22,5 +26,14 @@ public interface UserChallengeService {
 	void createChallenge(int whitePlayerId, int blackPlayerId);
 	//zwracanie challeneTO ktory zapisuje w bazie danych
 	//komentarz do klasy
+
+	
+	List<ChallengeTo> findAllChallenges();
+
+	ChallengeTo findChallengeById(int id);
+
+	void saveChallenge(ChallengeTo challenge);
+
+	void deleteChallenge(int id);
 
 }

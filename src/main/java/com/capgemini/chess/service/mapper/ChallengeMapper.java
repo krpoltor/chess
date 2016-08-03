@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.capgemini.chess.dataaccess.entities.ChallengeEntity;
-import com.capgemini.chess.service.to.ChallengeTO;
+import com.capgemini.chess.service.to.ChallengeTo;
 
 public class ChallengeMapper {
 	
-	public static ChallengeTO map(ChallengeEntity challengeEntity) {
+	public static ChallengeTo map(ChallengeEntity challengeEntity) {
 		if (challengeEntity != null) {
-			ChallengeTO challengeTO = new ChallengeTO();
+			ChallengeTo challengeTO = new ChallengeTo();
 			challengeTO.setId(challengeEntity.getId());
 			challengeTO.setWhitePlayerId(challengeEntity.getWhitePlayerId());
 			challengeTO.setBlackPlayerId(challengeEntity.getBlackPlayerId());
@@ -22,7 +22,7 @@ public class ChallengeMapper {
 		return null;
 	}
 
-	public static ChallengeEntity map(ChallengeTO challengeTO) {
+	public static ChallengeEntity map(ChallengeTo challengeTO) {
 		if (challengeTO != null) {
 			ChallengeEntity challengeEntity = new ChallengeEntity();
 			challengeEntity.setId(challengeTO.getId());
@@ -36,7 +36,7 @@ public class ChallengeMapper {
 		return null;
 	}
 	
-	public static ChallengeEntity update(ChallengeEntity challengeEntity, ChallengeTO challengeTO) {
+	public static ChallengeEntity update(ChallengeEntity challengeEntity, ChallengeTo challengeTO) {
 		if (challengeTO != null && challengeEntity != null) {
 			challengeEntity.setId(challengeTO.getId());
 			challengeEntity.setWhitePlayerId(challengeTO.getWhitePlayerId());
@@ -48,11 +48,11 @@ public class ChallengeMapper {
 		return challengeEntity;
 	}
 	
-	public static List<ChallengeTO> map2TOs(List<ChallengeEntity> challengeEntities) {
+	public static List<ChallengeTo> map2TOs(List<ChallengeEntity> challengeEntities) {
 		return challengeEntities.stream().map(ChallengeMapper::map).collect(Collectors.toList());
 	}
 
-	public static List<ChallengeEntity> map2Entities(List<ChallengeTO> challengeTOs) {
+	public static List<ChallengeEntity> map2Entities(List<ChallengeTo> challengeTOs) {
 		return challengeTOs.stream().map(ChallengeMapper::map).collect(Collectors.toList());
 	}
 }

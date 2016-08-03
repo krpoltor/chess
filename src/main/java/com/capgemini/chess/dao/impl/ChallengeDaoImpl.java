@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.capgemini.chess.dao.ChallengeDao;
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
-import com.capgemini.chess.service.to.ChallengeTO;
+import com.capgemini.chess.service.to.ChallengeTo;
 
 @Component
 public class ChallengeDaoImpl implements ChallengeDao {
@@ -17,7 +17,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	/**
 	 * List of ChallengeTO mocking Database.
 	 */
-	private static List<ChallengeTO> mockingChallengeTableList = new LinkedList<ChallengeTO>();
+	private static List<ChallengeTo> mockingChallengeTableList = new LinkedList<ChallengeTo>();
 	
 	/**
 	 * Two second in miliseconds.
@@ -37,19 +37,19 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	@Override
 	public final void createListOfChallengeTO() {
-		List<ChallengeTO> temporaryList = new LinkedList<ChallengeTO>();
+		List<ChallengeTo> temporaryList = new LinkedList<ChallengeTo>();
 		Date startDate = new Date();
 		Date endDate = new Date(startDate.getTime() + TWO_SECONDS);
-		temporaryList.add(new ChallengeTO(0, 1, 2, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
+		temporaryList.add(new ChallengeTo(0, 1, 2, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
 		endDate = new Date(startDate.getTime() + THREE_SECONDS);
-		temporaryList.add(new ChallengeTO(1, 1, 2, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
+		temporaryList.add(new ChallengeTo(1, 1, 2, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
 		setMockingChallengeTableList(temporaryList);
 	}
 
 	@Override
 	public final void deleteOverdueChallengesFromListOfChallengeTO() {
-		List<ChallengeTO> temporaryList = getMockingChallengeTableList();
-		ListIterator<ChallengeTO> iter = temporaryList.listIterator();
+		List<ChallengeTo> temporaryList = getMockingChallengeTableList();
+		ListIterator<ChallengeTo> iter = temporaryList.listIterator();
 		Date currentTime = new Date();
 		while (iter.hasNext()) {
 			if (iter.next().getEndDate().getTime() < currentTime.getTime()) {
@@ -61,9 +61,9 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	@Override
 	public final void readListOfChallengeTO() {
-		List<ChallengeTO> list = getMockingChallengeTableList();
+		List<ChallengeTo> list = getMockingChallengeTableList();
 		System.out.println("List contains: ");
-		for (ChallengeTO challengeTO : list) {
+		for (ChallengeTo challengeTO : list) {
 			System.out.println("Challenge ID: " + challengeTO.getId());
 			System.out.println("Start date: " + challengeTO.getStartDate());
 			System.out.println("End date: " + challengeTO.getEndDate());
@@ -72,39 +72,39 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	@Override
 	public final void deleteListOfChallengeTO() {
-		List<ChallengeTO> temporaryList = getMockingChallengeTableList();
+		List<ChallengeTo> temporaryList = getMockingChallengeTableList();
 		temporaryList.clear();
 		setMockingChallengeTableList(temporaryList);
 	}
 
-	public final List<ChallengeTO> getMockingChallengeTableList() {
+	public final List<ChallengeTo> getMockingChallengeTableList() {
 		return mockingChallengeTableList;
 	}
 
-	public void setMockingChallengeTableList(final List<ChallengeTO> inputlist) {
+	public void setMockingChallengeTableList(final List<ChallengeTo> inputlist) {
 		ChallengeDaoImpl.mockingChallengeTableList = inputlist;
 	}
 
 	@Override
-	public final ChallengeTO getChallengeById(final int challengeId) {
+	public final ChallengeTo getChallengeById(final int challengeId) {
 		return mockingChallengeTableList.get(challengeId);
 	}
 
 	@Override
-	public final void addNewChallenge(final ChallengeTO newChallenge) {
+	public final void addNewChallenge(final ChallengeTo newChallenge) {
 		mockingChallengeTableList.add(newChallenge);
 	}
 
 	@Override
 	public final void changeChallengeStatus(final int challengeId, final ChallengeStatus status) {
-		ChallengeTO challenge = mockingChallengeTableList.get(challengeId);
+		ChallengeTo challenge = mockingChallengeTableList.get(challengeId);
 		removeChallengeById(challengeId);
 		challenge.setStatus(status);
 		addChallengeById(challengeId, challenge);
 	}
 
 	@Override
-	public final void addChallengeById(final int challengeId, final ChallengeTO challenge) {
+	public final void addChallengeById(final int challengeId, final ChallengeTo challenge) {
 		mockingChallengeTableList.add(challengeId, challenge);
 	}
 

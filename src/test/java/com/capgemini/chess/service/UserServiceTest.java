@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.capgemini.chess.service.impl.UserServiceImpl;
-import com.capgemini.chess.service.to.UserProfileTO;
+import com.capgemini.chess.service.to.UserProfileTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -32,7 +32,7 @@ public class UserServiceTest {
 	public void testReadUserSuccessful() throws Exception {
 
 		// when
-		UserProfileTO userTO = service.readUser(1L);
+		UserProfileTo userTO = service.readUser(1L);
 		assertNotNull(userTO);
 	}
 

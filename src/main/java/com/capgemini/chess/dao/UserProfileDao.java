@@ -2,7 +2,7 @@ package com.capgemini.chess.dao;
 
 import java.util.List;
 
-import com.capgemini.chess.service.to.UserProfileTO;
+import com.capgemini.chess.service.to.UserProfileTo;
 
 public interface UserProfileDao {
 
@@ -23,13 +23,13 @@ public interface UserProfileDao {
 	 *            - ID to identify user profile.
 	 * @return UserProfileTO
 	 */
-	UserProfileTO getUserProfileById(int id);
+	UserProfileTo getUserProfileById(int id);
 
 	/**
 	 * Getter for list mocking Database table "USERS".
 	 * 
 	 * @return List<UserProfileTO>
 	 */
-	List<UserProfileTO> getMockingUserProfileTableList();
+	List<UserProfileTo> getMockingUserProfileTableList();
 
 }

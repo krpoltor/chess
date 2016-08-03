@@ -2,6 +2,7 @@ package com.capgemini.chess.service.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.capgemini.chess.dao.ChallengeDao;
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
 import com.capgemini.chess.service.UserChallengeService;
-import com.capgemini.chess.service.to.ChallengeTO;
+import com.capgemini.chess.service.to.ChallengeTo;
 
 @Service
 public class UserChallengeServiceImpl implements UserChallengeService {
@@ -47,7 +48,7 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		Date startDate = new Date();
 		Date endDate = addDaysToGivenDate(startDate, FOURTEEN_DAYS);
 
-		ChallengeTO newChallenge = new ChallengeTO(id, whitePlayerId, blackPlayerId, startDate, endDate,
+		ChallengeTo newChallenge = new ChallengeTo(id, whitePlayerId, blackPlayerId, startDate, endDate,
 				ChallengeStatus.WAITING_FOR_REPLY);
 		challengeDao.addNewChallenge(newChallenge);
 	}
@@ -58,5 +59,28 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		calendar.add(Calendar.DAY_OF_YEAR, numberOfDaysToAdd);
 		Date date = calendar.getTime();
 		return date;
+	}
+
+	@Override
+	public List<ChallengeTo> findAllChallenges() {
+		return challengeDao.getMockingChallengeTableList();
+	}
+
+	@Override
+	public ChallengeTo findChallengeById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveChallenge(ChallengeTo challenge) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteChallenge(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

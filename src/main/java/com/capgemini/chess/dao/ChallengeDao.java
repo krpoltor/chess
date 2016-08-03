@@ -3,7 +3,7 @@ package com.capgemini.chess.dao;
 import java.util.List;
 
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
-import com.capgemini.chess.service.to.ChallengeTO;
+import com.capgemini.chess.service.to.ChallengeTo;
 
 public interface ChallengeDao {
 
@@ -34,7 +34,7 @@ public interface ChallengeDao {
 	 *            - Challenge ID.
 	 * @return ChallengeTO containing challenge with given ID.
 	 */
-	ChallengeTO getChallengeById(int challengeId);
+	ChallengeTo getChallengeById(int challengeId);
 
 	/**
 	 * Add new ChallengeTO to the list.
@@ -42,7 +42,7 @@ public interface ChallengeDao {
 	 * @param newChallenge
 	 *            - ChallengeTO
 	 */
-	void addNewChallenge(ChallengeTO newChallenge);
+	void addNewChallenge(ChallengeTo newChallenge);
 
 	/**
 	 * Add new ChallengeTO to the list by given ID.
@@ -52,7 +52,7 @@ public interface ChallengeDao {
 	 * @param newChallenge
 	 *            - ChallengeTO containing challenge.
 	 */
-	void addChallengeById(int challengeId, ChallengeTO newChallenge);
+	void addChallengeById(int challengeId, ChallengeTo newChallenge);
 
 	/**
 	 * Change challenge status.
@@ -77,7 +77,7 @@ public interface ChallengeDao {
 	 * 
 	 * @return List<ChallengeTO>
 	 */
-	List<ChallengeTO> getMockingChallengeTableList();
+	List<ChallengeTo> getMockingChallengeTableList();
 
 	/**
 	 * Setter for List simulating DB.
@@ -85,6 +85,6 @@ public interface ChallengeDao {
 	 * @param inputlist
 	 *            - List<ChallengeTO>
 	 */
-	void setMockingChallengeTableList(List<ChallengeTO> inputlist);
+	void setMockingChallengeTableList(List<ChallengeTo> inputlist);
 
 }
