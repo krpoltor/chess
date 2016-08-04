@@ -40,6 +40,9 @@ public class ChallengeRestService {
 		}
 		return new ResponseEntity<List<ChallengeTo>>(allChallenges, HttpStatus.OK);
 	}
+	
+	
+	//TODO: all challenges by user
 
 	/**
 	 * Get challenge by ID.
@@ -124,4 +127,6 @@ public class ChallengeRestService {
 		userChallengeService.deleteChallenge(id);
 		return new ResponseEntity<ChallengeTo>(HttpStatus.NO_CONTENT);
 	}
+	
+	//TODO: Delete all challenges
 }
