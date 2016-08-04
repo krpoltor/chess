@@ -98,7 +98,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	@Override
 	public final void changeChallengeStatus(final int challengeId, final ChallengeStatus status) {
 		ChallengeTo challenge = mockingChallengeTableList.get(challengeId);
-		removeChallengeById(challengeId);
+		deleteChallengeById(challengeId);
 		challenge.setStatus(status);
 		addChallengeById(challengeId, challenge);
 	}
@@ -109,7 +109,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public final void removeChallengeById(final int challengeId) {
+	public final void deleteChallengeById(final int challengeId) {
 		mockingChallengeTableList.remove(challengeId);
 	}
 

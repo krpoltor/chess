@@ -70,7 +70,7 @@ public interface ChallengeDao {
 	 * @param challengeId
 	 *            - Challenge ID.
 	 */
-	void removeChallengeById(int challengeId);
+	void deleteChallengeById(int challengeId);
 
 	/**
 	 * Getter for List simulating DB.

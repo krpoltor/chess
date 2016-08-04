@@ -111,13 +111,6 @@ public class UserProfileTo {
 	public void setLifeMotto(String lifeMotto) {
 		this.lifeMotto = lifeMotto;
 	}
-	
 
-	@Override
-	public String toString() {
-		return "UserProfileTO [id=" + id + ", login=" + login + ", password=" + password + ", name=" + name
-				+ ", surname=" + surname + ", email=" + email + ", aboutMe=" + aboutMe + ", lifeMotto=" + lifeMotto
-				+ "]";
-	}
 	//CHECKSTYLE:ON
 }

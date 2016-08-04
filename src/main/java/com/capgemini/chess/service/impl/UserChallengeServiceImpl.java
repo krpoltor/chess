@@ -69,18 +69,18 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 	@Override
 	public ChallengeTo findChallengeById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return challengeDao.getChallengeById(id);
 	}
 
 	@Override
 	public void saveChallenge(ChallengeTo challenge) {
 		// TODO Auto-generated method stub
-		
+		challengeDao.addNewChallenge(challenge);
 	}
 
 	@Override
 	public void deleteChallenge(int id) {
 		// TODO Auto-generated method stub
-		
+		challengeDao.deleteChallengeById(id);
 	}
 }
