@@ -37,10 +37,11 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		// challengeDao.removeChallengeById(challengeId);
 		// message.show("Opponent declined.")
 	}
-	//white i black player @NotNull
-	//nie final
+
+	// white i black player @NotNull
+	// nie final
 	@Override
-	public void createChallenge(@NotNull final int whitePlayerId,@NotNull final int blackPlayerId) {
+	public void createChallenge(@NotNull final int whitePlayerId, @NotNull final int blackPlayerId) {
 		// List will not reiterate itself and shift data into empty fields
 		// DB engine will do this
 		int currentSize = challengeDao.getMockingChallengeTableList().size();
@@ -68,19 +69,26 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 
 	@Override
 	public ChallengeTo findChallengeById(int id) {
-		// TODO Auto-generated method stub
 		return challengeDao.getChallengeById(id);
 	}
 
 	@Override
 	public void saveChallenge(ChallengeTo challenge) {
-		// TODO Auto-generated method stub
 		challengeDao.addNewChallenge(challenge);
 	}
 
 	@Override
-	public void deleteChallenge(int id) {
-		// TODO Auto-generated method stub
+	public void deleteChallengeById(int id) {
 		challengeDao.deleteChallengeById(id);
+	}
+
+	@Override
+	public List<ChallengeTo> findAllChallengesByUser(int userId) {
+		return challengeDao.findAllChallengesByUser(userId);
+	}
+
+	@Override
+	public void deleteAllChallenges() {
+		challengeDao.deleteListOfChallengeTo();
 	}
 }

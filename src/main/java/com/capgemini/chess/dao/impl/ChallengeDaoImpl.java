@@ -1,12 +1,11 @@
 package com.capgemini.chess.dao.impl;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
 import org.springframework.stereotype.Component;
-
 import com.capgemini.chess.dao.ChallengeDao;
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
 import com.capgemini.chess.service.to.ChallengeTo;
@@ -18,13 +17,13 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	 * List of ChallengeTO mocking Database.
 	 */
 	private static List<ChallengeTo> mockingChallengeTableList = new LinkedList<ChallengeTo>();
-	
+
 	/**
-	 * Two second in miliseconds.
+	 * Two second in milliseconds.
 	 */
 	private static int TWO_SECONDS = 20000;
 	/**
-	 * Three seconds in miliseconds.
+	 * Three seconds in milliseconds.
 	 */
 	private static int THREE_SECONDS = 30000;
 
@@ -32,11 +31,11 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	 * Constructor simulating creation of database table "CHALLENGES".
 	 */
 	public ChallengeDaoImpl() {
-		createListOfChallengeTO();
+		createListOfChallengeTo();
 	}
 
 	@Override
-	public final void createListOfChallengeTO() {
+	public final void createListOfChallengeTo() {
 		List<ChallengeTo> temporaryList = new LinkedList<ChallengeTo>();
 		Date startDate = new Date();
 		Date endDate = new Date(startDate.getTime() + TWO_SECONDS);
@@ -47,10 +46,11 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public final void deleteOverdueChallengesFromListOfChallengeTO() {
+	public final void deleteOverdueChallengesFromListOfChallengeTo() {
 		List<ChallengeTo> temporaryList = getMockingChallengeTableList();
 		ListIterator<ChallengeTo> iter = temporaryList.listIterator();
 		Date currentTime = new Date();
+
 		while (iter.hasNext()) {
 			if (iter.next().getEndDate().getTime() < currentTime.getTime()) {
 				iter.remove();
@@ -60,7 +60,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public final void readListOfChallengeTO() {
+	public final void readListOfChallengeTo() {
 		List<ChallengeTo> list = getMockingChallengeTableList();
 		System.out.println("List contains: ");
 		for (ChallengeTo challengeTO : list) {
@@ -71,7 +71,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public final void deleteListOfChallengeTO() {
+	public final void deleteListOfChallengeTo() {
 		List<ChallengeTo> temporaryList = getMockingChallengeTableList();
 		temporaryList.clear();
 		setMockingChallengeTableList(temporaryList);
@@ -111,6 +111,19 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	@Override
 	public final void deleteChallengeById(final int challengeId) {
 		mockingChallengeTableList.remove(challengeId);
+	}
+
+	@Override
+	public List<ChallengeTo> findAllChallengesByUser(int userId) {
+		List<ChallengeTo> userChallenges = new LinkedList<ChallengeTo>();
+		List<ChallengeTo> allChallenges = getMockingChallengeTableList();
+		Iterator<ChallengeTo> iter = allChallenges.iterator();
+		while (iter.hasNext()) {
+			if (iter.next().getWhitePlayerId() == userId || iter.next().getBlackPlayerId() == userId) {
+				userChallenges.add(iter.next());
+			}
+		}
+		return userChallenges;
 	}
 
 }

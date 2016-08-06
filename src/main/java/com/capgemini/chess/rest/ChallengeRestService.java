@@ -17,42 +17,65 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.capgemini.chess.service.UserChallengeService;
 import com.capgemini.chess.service.to.ChallengeTo;
 
-
 @Controller
 @ResponseBody
 public class ChallengeRestService {
-	
+
 	private static Logger LOGGER = Logger.getLogger(ChallengeRestService.class.getName());
-	
+
 	@Autowired
 	UserChallengeService userChallengeService;
-	
+
 	/**
-	 * Find all challenges.
+	 * Finds all challenges. <br>
+	 * Usage: <i>/rest/challenges</i> with RequestMethod.<b>GET</b>
 	 * 
-	 * @return
-	 */ 
+	 * @return HttpStatus.<b>NOT_FOUND</b> when database is empty or <br>
+	 *         List<ChallengeTo> containing every challenge in database and
+	 *         <b>HttpStatus.OK</b>.
+	 */
 	@RequestMapping(value = "/rest/challenges", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ChallengeTo>> getchallenge() {
+	public ResponseEntity<List<ChallengeTo>> getChallenge() {
 		List<ChallengeTo> allChallenges = userChallengeService.findAllChallenges();
 		if (allChallenges.isEmpty()) {
 			return new ResponseEntity<List<ChallengeTo>>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<ChallengeTo>>(allChallenges, HttpStatus.OK);
 	}
-	
-	
-	//TODO: all challenges by user
 
 	/**
-	 * Get challenge by ID.
+	 * Finds all challenges of the user. <br>
+	 * Usage: <i>/rest/challenges/byUser/{userId}</i> with RequestMethod.
+	 * <b>GET</b>
+	 * 
+	 * @param userId
+	 *            - ID of a user.
+	 * @return HttpStatus.<b>NOT_FOUND</b> when user doesn't have challenges or
+	 *         <br>
+	 *         List<ChallengeTo> with given user challenges and HttpStatus.
+	 *         <b>OK</b>
+	 */
+	@RequestMapping(value = "/rest/challenges/byUser/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ChallengeTo>> getUserChallenges(@PathVariable("userId") int userId) {
+		List<ChallengeTo> allUserChallenges = userChallengeService.findAllChallengesByUser(userId);
+		if (allUserChallenges.isEmpty()) {
+			return new ResponseEntity<List<ChallengeTo>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<ChallengeTo>>(allUserChallenges, HttpStatus.OK);
+	}
+
+	/**
+	 * Get challenge by ID. <br>
+	 * Usage: <i>/rest/challenges/{id}</i> with RequestMethod.<b>GET</b>
 	 * 
 	 * @param id
 	 *            - challenge ID.
-	 * @return
+	 * @return HttpStatus.<b>NOT_FOUND</b> when this challenge doesn't exist or
+	 *         <br>
+	 *         found ChallengeTo with HttpStatus.<b>OK</b>.
 	 */
 	@RequestMapping(value = "/rest/challenges/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ChallengeTo> getchallenge(@PathVariable("id") int id) {
+	public ResponseEntity<ChallengeTo> getChallenge(@PathVariable("id") int id) {
 		ChallengeTo challenge = userChallengeService.findChallengeById(id);
 		if (challenge.equals(null)) {
 			LOGGER.info("Challenge with id " + id + " not found");
@@ -62,15 +85,16 @@ public class ChallengeRestService {
 	}
 
 	/**
-	 * Add new challenge to Database.
+	 * Add new challenge to Database. <br>
+	 * Usage: <i>/rest/challenges</i> with RequestMethod.<b>POST</b>
 	 * 
 	 * @param challenge
 	 *            - challenge to add.
 	 * @param ucBuilder
-	 * @return
+	 * @return headers and HttpStatus.<b>CREATED</b>.
 	 */
 	@RequestMapping(value = "/rest/challenges", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> addchallenge(@RequestBody ChallengeTo challenge, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> addChallenge(@RequestBody ChallengeTo challenge, UriComponentsBuilder ucBuilder) {
 
 		LOGGER.info("Creating challenge: " + challenge.toString());
 		userChallengeService.saveChallenge(challenge);
@@ -84,13 +108,19 @@ public class ChallengeRestService {
 	/**
 	 * Update challenge from Database.
 	 * 
+	 * <br>
+	 * Usage: <i>/rest/challenges/{id}</i> with RequestMethod.<b>PUT</b>
+	 * 
 	 * @param id
 	 *            - ID of challenge to update.
 	 * @param challenge
-	 * @return
+	 *            - ChallengeTo with new data
+	 * @return HttpStatus.<b>NOT_FOUND</b> when the given challenge couldn't be
+	 *         found or <br>
+	 *         updated ChallengeTo with HttpStatus.<b>OK</b>.
 	 */
 	@RequestMapping(value = "/rest/challenges/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<ChallengeTo> updatechallenge(@PathVariable("id") int id, @RequestBody ChallengeTo challenge) {
+	public ResponseEntity<ChallengeTo> updateChallenge(@PathVariable("id") int id, @RequestBody ChallengeTo challenge) {
 		ChallengeTo currentChallenge = userChallengeService.findChallengeById(id);
 
 		if (currentChallenge.equals(null)) {
@@ -109,24 +139,45 @@ public class ChallengeRestService {
 	}
 
 	/**
-	 * Delete challenge.
+	 * Delete challenge by its ID. <br>
+	 * Usage: <i>/rest/challenges/{id}</i> with RequestMethod.<b>DELETE</b>
 	 * 
 	 * @param id
 	 *            - ID of challenge to delete.
-	 * @return
+	 * @return HttpStatus.<b>NOT_FOUND</b> when the challenge to delete couldn't
+	 *         be found or<br>
+	 *         HttpStatus.<b>NO_CONTENT</b> when challenge was successfully
+	 *         deleted.
 	 */
 	@RequestMapping(value = "/rest/challenges/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<ChallengeTo> deletechallenge(@PathVariable("id") int id) {
+	public ResponseEntity<ChallengeTo> deleteChallenge(@PathVariable("id") int id) {
 		LOGGER.info("Fetching & Deleting User with id " + id);
 		ChallengeTo challenge = userChallengeService.findChallengeById(id);
 		if (challenge.equals(null)) {
 			LOGGER.info("Unable to delete. challenge with id " + id + " not found");
 			return new ResponseEntity<ChallengeTo>(HttpStatus.NOT_FOUND);
 		}
-
-		userChallengeService.deleteChallenge(id);
+		userChallengeService.deleteChallengeById(id);
 		return new ResponseEntity<ChallengeTo>(HttpStatus.NO_CONTENT);
 	}
-	
-	//TODO: Delete all challenges
+
+	/**
+	 * Delete every challenge.
+	 * 
+	 * <br>
+	 * Usage: <i>/rest/challenges</i> with RequestMethod.<b>DELETE</b>
+	 * 
+	 * @param id
+	 *            - ID of challenge to delete.
+	 * @return HttpStatus.<b>NO_CONTENT</b> when challenges were successfully
+	 *         deleted.
+	 */
+	@RequestMapping(value = "/rest/challenges", method = RequestMethod.DELETE)
+	public ResponseEntity<ChallengeTo> deleteAllChallenges() {
+		LOGGER.info("Deleting every challenge.");
+
+		userChallengeService.deleteAllChallenges();
+		return new ResponseEntity<ChallengeTo>(HttpStatus.NO_CONTENT);
+	}
+
 }

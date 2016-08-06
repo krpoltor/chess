@@ -17,18 +17,25 @@ public class ChallengeTo {
 	 */
 	public ChallengeTo() {
 	}
-	
+
 	/**
 	 * ChallengeTO parameterized constructor.
 	 * 
-	 * @param id - Challenge's ID.
-	 * @param whitePlayerId - Black set player's ID.
-	 * @param blackPlayerId - White set player's ID.
-	 * @param startDate - Date of creating a challenge.
-	 * @param endDate - Date of expiring a challenge.
-	 * @param status - Status of a challenge from {@link ChallengeStatus}
+	 * @param id
+	 *            - Challenge's ID.
+	 * @param whitePlayerId
+	 *            - Black set player's ID.
+	 * @param blackPlayerId
+	 *            - White set player's ID.
+	 * @param startDate
+	 *            - Date of creating a challenge.
+	 * @param endDate
+	 *            - Date of expiring a challenge.
+	 * @param status
+	 *            - Status of a challenge from {@link ChallengeStatus}
 	 */
-	public ChallengeTo(int id, int whitePlayerId, int blackPlayerId, Date startDate, Date endDate, ChallengeStatus status) {
+	public ChallengeTo(int id, int whitePlayerId, int blackPlayerId, Date startDate, Date endDate,
+			ChallengeStatus status) {
 		this.id = id;
 		this.whitePlayerId = whitePlayerId;
 		this.blackPlayerId = blackPlayerId;
@@ -37,7 +44,7 @@ public class ChallengeTo {
 		this.status = status;
 	}
 
-	//CHECKSTYLE:OFF
+	// CHECKSTYLE:OFF
 	public int getId() {
 		return id;
 	}
@@ -85,5 +92,5 @@ public class ChallengeTo {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	//CHECKSTYLE:ON
+	// CHECKSTYLE:ON
 }
