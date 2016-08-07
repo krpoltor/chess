@@ -1,11 +1,14 @@
 package com.capgemini.chess.dao.impl;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
+
 import com.capgemini.chess.dao.ChallengeDao;
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
 import com.capgemini.chess.service.to.ChallengeTo;
@@ -42,6 +45,8 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		temporaryList.add(new ChallengeTo(0, 1, 2, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
 		endDate = new Date(startDate.getTime() + THREE_SECONDS);
 		temporaryList.add(new ChallengeTo(1, 1, 2, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
+		endDate = new Date(startDate.getTime() + THREE_SECONDS);
+		temporaryList.add(new ChallengeTo(2, 23, 5, startDate, endDate, ChallengeStatus.WAITING_FOR_REPLY));
 		setMockingChallengeTableList(temporaryList);
 	}
 
@@ -86,11 +91,6 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public final ChallengeTo getChallengeById(final int challengeId) {
-		return mockingChallengeTableList.get(challengeId);
-	}
-
-	@Override
 	public final void addNewChallenge(final ChallengeTo newChallenge) {
 		mockingChallengeTableList.add(newChallenge);
 	}
@@ -114,15 +114,23 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
+	public final ChallengeTo getChallengeById(final int challengeId) {
+		return mockingChallengeTableList.get(challengeId);
+	}
+
+	@Override
 	public List<ChallengeTo> findAllChallengesByUser(int userId) {
-		List<ChallengeTo> userChallenges = new LinkedList<ChallengeTo>();
+		Predicate<ChallengeTo> whitePlayerIdPredicate = p -> p.getWhitePlayerId() == userId;
+		Predicate<ChallengeTo> blackPlayerIdPredicate = p -> p.getBlackPlayerId() == userId;
+
+		Predicate<ChallengeTo> bothPredicates = whitePlayerIdPredicate.or(blackPlayerIdPredicate);
+
 		List<ChallengeTo> allChallenges = getMockingChallengeTableList();
-		Iterator<ChallengeTo> iter = allChallenges.iterator();
-		while (iter.hasNext()) {
-			if (iter.next().getWhitePlayerId() == userId || iter.next().getBlackPlayerId() == userId) {
-				userChallenges.add(iter.next());
-			}
-		}
+
+		List<ChallengeTo> userChallenges = allChallenges.stream()//
+				.filter(bothPredicates)//
+				.collect(Collectors.toList());
+
 		return userChallenges;
 	}
 

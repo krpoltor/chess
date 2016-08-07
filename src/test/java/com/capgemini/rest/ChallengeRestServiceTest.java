@@ -1,6 +1,5 @@
-package com.capgemini.chess.service;
+package com.capgemini.rest;
 
-import static java.lang.Math.toIntExact;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,16 +26,37 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.capgemini.chess.dataaccess.enums.ChallengeStatus;
+import com.capgemini.chess.rest.ChallengeRestService;
+import com.capgemini.chess.service.UserChallengeService;
 import com.capgemini.chess.service.to.ChallengeTo;
-import com.capgemini.utils.*;
+import com.capgemini.utils.FileUtils;
+
+/**
+ * Test class for testing {@link ChallengeRestService}<br>
+ * Checklist:<br>
+ * 1. Test getting every challenge from database.<br>
+ * 2. Test getting challenge by its ID.<br>
+ * 3.Test updating challenge.<br>
+ * 4. Test adding new challenge to database.<br>
+ * 5. Test getting challenges by user.<br>
+ * 6. Test deleting challenges by ID.<br>
+ * 7. Test deleting every challenge from database.<br>
+ * 
+ * @author KRPOLTOR
+ *
+ */
+
+//FIXME: whole class
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "ChallengeRestServiceTest-context.xml")
+//@ContextConfiguration(locations = "ChallengeRestServiceTest-context.xml")
+@ContextConfiguration({"classpath*:src/test/resources/com/capgemini/chess/rest/applicationContext.xml"})
 @WebAppConfiguration
 public class ChallengeRestServiceTest {
 
 	@Autowired
 	private UserChallengeService userChallengeService;
+	
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -141,7 +161,7 @@ public class ChallengeRestServiceTest {
 	@Test
 	public void testShouldSaveChallenge() throws Exception {
 		// given
-		File file = FileUtils.getFileFromClasspath("classpath:src/test/java/challengeToSave.json");
+		File file = FileUtils.getFileFromClasspath("classpath:src/test/resorces/json/challengeToSave.json");
 		String json = FileUtils.readFileToString(file);
 		// when
 		ResultActions response = this.mockMvc//
@@ -162,7 +182,7 @@ public class ChallengeRestServiceTest {
 	public void testShouldUpdateBook() throws Exception {
 		// given
 		Date testDate = new Date();
-		File file = FileUtils.getFileFromClasspath("classpath:src/test/java/challengeToSave.json");
+		File file = FileUtils.getFileFromClasspath("classpath:src/test/resorces/json/challengeToSave.json");
 		String json = FileUtils.readFileToString(file);
 		ChallengeTo challengeTo = new ChallengeTo(0, 1, 2, testDate, testDate, ChallengeStatus.ACCEPTED);
 		Mockito.when(userChallengeService.findChallengeById(Mockito.anyInt())).thenReturn(challengeTo);

@@ -1,13 +1,14 @@
 package com.capgemini.chess.service;
 
 import java.util.List;
-
+import org.springframework.stereotype.Service;
 import com.capgemini.chess.service.to.ChallengeTo;
 
 /**
  * @author KRPOLTOR
  *
  */
+@Service
 public interface UserChallengeService {
 
 	/**
@@ -27,7 +28,8 @@ public interface UserChallengeService {
 	void declineChallenge(int challengeId);
 
 	/**
-	 * Create a new challenge between two players and set it's status to INIT.
+	 * Create a new challenge between two players and set it's status to
+	 * WAITING_FOR_REPLY.
 	 * 
 	 * @param whitePlayerId
 	 *            - ID of a player playing with white chess-set.
@@ -35,6 +37,7 @@ public interface UserChallengeService {
 	 *            - ID of a player playing with black chess-set.
 	 */
 	void createChallenge(int whitePlayerId, int blackPlayerId);
+
 	// zwracanie challeneTO ktory zapisuje w bazie danych
 	// komentarz do klasy
 

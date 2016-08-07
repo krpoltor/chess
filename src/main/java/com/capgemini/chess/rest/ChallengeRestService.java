@@ -96,6 +96,10 @@ public class ChallengeRestService {
 	@RequestMapping(value = "/rest/challenges", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> addChallenge(@RequestBody ChallengeTo challenge, UriComponentsBuilder ucBuilder) {
 
+		if(userChallengeService.findAllChallenges().contains(challenge)){
+			LOGGER.info("Challenge: " + challenge.toString() + " already exists!");
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
 		LOGGER.info("Creating challenge: " + challenge.toString());
 		userChallengeService.saveChallenge(challenge);
 		LOGGER.info("Challenge created");
@@ -133,7 +137,8 @@ public class ChallengeRestService {
 		currentChallenge.setStatus(challenge.getStatus());
 		currentChallenge.setStartDate(challenge.getStartDate());
 		currentChallenge.setEndDate(challenge.getEndDate());
-
+		
+		userChallengeService.deleteChallengeById(id);
 		userChallengeService.saveChallenge(currentChallenge);
 		return new ResponseEntity<ChallengeTo>(currentChallenge, HttpStatus.OK);
 	}

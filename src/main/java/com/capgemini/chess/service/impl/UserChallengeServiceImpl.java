@@ -38,12 +38,8 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		// message.show("Opponent declined.")
 	}
 
-	// white i black player @NotNull
-	// nie final
 	@Override
 	public void createChallenge(@NotNull final int whitePlayerId, @NotNull final int blackPlayerId) {
-		// List will not reiterate itself and shift data into empty fields
-		// DB engine will do this
 		int currentSize = challengeDao.getMockingChallengeTableList().size();
 		int id = currentSize++;
 		Date startDate = new Date();
@@ -68,13 +64,13 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 	}
 
 	@Override
-	public ChallengeTo findChallengeById(int id) {
-		return challengeDao.getChallengeById(id);
-	}
-
-	@Override
 	public void saveChallenge(ChallengeTo challenge) {
 		challengeDao.addNewChallenge(challenge);
+	}
+	
+	@Override
+	public ChallengeTo findChallengeById(int id) {
+		return challengeDao.getChallengeById(id);
 	}
 
 	@Override
