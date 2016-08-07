@@ -9,4 +9,5 @@
 	<bean class="org.mockito.Mockito" factory-method="mock">
 		<constructor-arg value="com.capgemini.chess.service.ChallengeService" />
 	</bean>
+
 </beans>
