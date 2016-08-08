@@ -10,4 +10,6 @@
 		<constructor-arg value="com.capgemini.chess.service.ChallengeService" />
 	</bean>
 
+	<!-- <bean id="userChallengeService" class="com.capgemini.chess.service.UserChallengeService"/> -->
+
 </beans>
