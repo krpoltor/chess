@@ -24,7 +24,7 @@ public class ChallengeRestService {
 	private static Logger LOGGER = Logger.getLogger(ChallengeRestService.class.getName());
 
 	@Autowired
-	UserChallengeService userChallengeService;
+	private UserChallengeService userChallengeService;
 
 	/**
 	 * Finds all challenges. <br>

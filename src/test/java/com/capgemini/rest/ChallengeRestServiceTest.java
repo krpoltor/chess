@@ -46,17 +46,17 @@ import com.capgemini.utils.FileUtils;
  *
  */
 
-//bean creation exception for autowiring userChallengeService
+// bean creation exception for autowiring userChallengeService
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "ChallengeRestServiceTest-context.xml")
-@ContextConfiguration({"classpath*:src/test/resources/com/capgemini/chess/rest"})
+// @ContextConfiguration(locations = "ChallengeRestServiceTest-context.xml")
+@ContextConfiguration({ "classpath*:src/test/resources/com/capgemini/chess/rest" })
 @WebAppConfiguration
 public class ChallengeRestServiceTest {
 
 	@Autowired
 	private UserChallengeService userChallengeService;
-	
+
 	@Autowired
 	private WebApplicationContext wac;
 
